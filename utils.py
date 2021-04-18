@@ -64,37 +64,34 @@ class STTPipeline:
         return transcription
 
 
-def extractAudio(input_file, output_dir, smoothing_window = 1.0, weight = 0.1):
-
-    os.makedirs(os.path.join(output_dir, "segments"), exist_ok=True)
-    audio_file_name = os.path.join(output_dir, f"{input_file}.wav")
+def video2audio(input_file, audio_file_name):
     command = "ffmpeg -hide_banner -loglevel warning -i {} -b:a 192k -ac 1 -ar 16000 -vn {}".format(input_file, audio_file_name)
-
     try:
         ret = subprocess.call(command, shell=True)
         print("Extracted audio to audio/{}".format(audio_file_name.split("/")[-1]))
-
-        print("Detecting silences...")
-        [fs, x] = read_audio_file(audio_file_name)
-        segmentLimits = silence_removal(x, fs, 0.05, 0.05, smoothing_window, weight)
-        ifile_name = os.path.basename(input_file)
-
-        output_dir = os.path.join(output_dir, "segments")
-        os.makedirs(output_dir, exist_ok=True)
-        files = []
-
-        print("Writing segments...")
-        for i, s in enumerate(segmentLimits):
-            strOut = "{0:s}_{1:.3f}-{2:.3f}.wav".format(ifile_name, s[0], s[1])
-            strOut = os.path.join(output_dir, strOut)
-            wavfile.write(strOut, fs, x[int(fs * s[0]):int(fs * s[1])])
-            files.append(strOut)
-
-        return files
-
     except Exception as e:
         print("Error: ", str(e))
         exit(1)
+
+
+def extractAudio(input_file, output_dir, smoothing_window = 1.0, weight = 0.1):
+
+    print("Detecting silences...")
+    [fs, x] = read_audio_file(input_file)
+    segmentLimits = silence_removal(x, fs, 0.05, 0.05, smoothing_window, weight)
+    ifile_name = os.path.basename(input_file)
+
+    os.makedirs(output_dir, exist_ok=True)
+    files = []
+
+    print("Writing segments...")
+    for i, s in enumerate(segmentLimits):
+        strOut = "{0:s}_{1:.3f}-{2:.3f}.wav".format(ifile_name, s[0], s[1])
+        strOut = os.path.join(output_dir, strOut)
+        wavfile.write(strOut, fs, x[int(fs * s[0]):int(fs * s[1])])
+        files.append(strOut)
+
+    return files
 
 
 def process_audio(audio_file, stt: STTPipeline):

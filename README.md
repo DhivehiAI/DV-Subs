@@ -23,12 +23,20 @@ The process follows a few basic steps:
 * Install requirements `pip install -r requirements.txt`
 
 ### Usage
+
+The transcriber script requires an audio file as input.  
+You can use the provided `audio_extract.py` to extract
+audio from an input video file, and run further pre-processing
+on the file. Ex: run it through RNNoise or Spleeter.
+
+Afterwards, run `dv_subs.py` with the following arguments
+
 ```shell
 usage: DV Subtitler [-h] [--model_dir MODEL_DIR] [--temp_dir TEMP_DIR] input output
 
 positional arguments:
   input                 Input file name
-  output                Output file name
+  output                Output audio file name
 
 optional arguments:
   -h, --help            show this help message and exit

@@ -5,7 +5,7 @@ import shutil
 
 if __name__ == "__main__":
     arg_parse = argparse.ArgumentParser("DV Subtitler")
-    arg_parse.add_argument("input", help="Input file name")
+    arg_parse.add_argument("input", help="Input audio file name")
     arg_parse.add_argument("output", help="Output file name")
     arg_parse.add_argument("--model_dir", default="./models", help="STT model files directory")
     arg_parse.add_argument("--temp_dir", default="./temp", help="Temp files directory")
