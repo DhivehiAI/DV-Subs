@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     # Start transcribing
     print("Transcribing...")
-    with open(args.output, "w") as f:
+    with open(args.output, "w", encoding="utf-8") as f:
 
         for w_file in tqdm(files):
             start, end, transcription = process_audio(w_file, stt)
