@@ -35,8 +35,8 @@ Afterwards, run `dv_subs.py` with the following arguments
 usage: DV Subtitler [-h] [--model_dir MODEL_DIR] [--temp_dir TEMP_DIR] input output
 
 positional arguments:
-  input                 Input file name
-  output                Output audio file name
+  input                 Input audio file name
+  output                Output srt file name
 
 optional arguments:
   -h, --help            show this help message and exit
