@@ -31,16 +31,27 @@ on the file. Ex: run it through RNNoise or Spleeter.
 
 Afterwards, run `dv_subs.py` with the following arguments
 
+The script uses pyAudioAnalysis to segment audio into more 
+manageable lengths by running a silence detection routine. For
+better results, you might want to play around with the
+`silence_window` and `silence_weight` options, until the 
+segmented audio looks good.
+
 ```shell
-usage: DV Subtitler [-h] [--model_dir MODEL_DIR] [--temp_dir TEMP_DIR] input output
+usage: dv_subs.py [-h] [--model_dir MODEL_DIR] [--temp_dir TEMP_DIR] [--silence_window SILENCE_WINDOW] [--silence_weight SILENCE_WEIGHT] input output
 
 positional arguments:
   input                 Input audio file name
-  output                Output srt file name
+  output                Output file name
 
 optional arguments:
   -h, --help            show this help message and exit
   --model_dir MODEL_DIR
                         STT model files directory
   --temp_dir TEMP_DIR   Temp files directory
+  --silence_window SILENCE_WINDOW
+                        Audio smoothing window
+  --silence_weight SILENCE_WEIGHT
+                        Audio silence probabilistic weight
+
 ```
