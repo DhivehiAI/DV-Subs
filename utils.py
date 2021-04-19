@@ -65,8 +65,9 @@ class STTPipeline:
 
 
 def video2audio(input_file, audio_file_name):
-    command = "ffmpeg -hide_banner -loglevel warning -i {} -b:a 192k -ac 1 -ar 16000 -vn {}".format(input_file, audio_file_name)
+    command = "ffmpeg -hide_banner -loglevel warning -i \"{}\" -b:a 192k -ac 1 -ar 16000 -vn \"{}\"".format(input_file, audio_file_name)
     try:
+        print(f"Running {command}")
         ret = subprocess.call(command, shell=True)
         print("Extracted audio to {}".format(audio_file_name.split("/")[-1]))
     except Exception as e:
