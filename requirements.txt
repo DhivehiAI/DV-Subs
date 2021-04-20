@@ -9,6 +9,7 @@ plotly==4.14.3
 pyaudioanalysis==0.3.6
 pydub==0.25.1
 pysocks==1.7.1
+srt==3.4.1
 toml==0.10.2
 torch==1.8.1
 transformers==4.5.1
