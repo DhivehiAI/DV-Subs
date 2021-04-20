@@ -56,7 +56,7 @@ if __name__ == "__main__":
     # write output
     print(f"Writing subtitle file to {args.output}...")
     with open(args.output, "w", encoding="utf-8") as f:
-        srt.sort_and_reindex(subs)
+        srt.sort_and_reindex(subs, in_place=True)
         f.write(srt.compose(subs))
 
     print("Removing temporary files...")
